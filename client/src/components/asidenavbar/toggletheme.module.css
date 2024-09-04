@@ -1,0 +1,42 @@
+.wrapper__toggle__theme {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+
+  &>span {
+    font-size: .8rem;
+  }
+}
+
+.button {
+  width: 50px;
+  margin: auto;
+  border-radius: 18px;
+  padding: 2px;
+  border: 1px solid var(--blue-500);
+  cursor: pointer;
+  background-color: var(--dark-950);
+  transition: all 200ms ease;
+
+  &:has(.circle--move) {
+    background-color: var(--light-100);
+  }
+
+}
+
+.circle {
+  height: 25px;
+  width: 25px;
+  border-radius: calc(18px - 2px);
+  color: var(--light-50);
+  transition: all 200ms ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle--move {
+  color: var(--dark-950);
+  transform: translateX(20px);
+}

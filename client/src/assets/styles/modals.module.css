@@ -1,0 +1,148 @@
+.modal {
+  margin: auto;
+  border: none;
+  padding: 20px;
+  border-radius: .5rem;
+}
+
+.modal::backdrop {
+  background-color: #00000070;
+}
+
+.modal:is([open]) {
+  animation: fadeInModal 100ms linear forwards;
+}
+
+.modal--out:is([open]) {
+  animation: fadeOutModal 100ms linear forwards;
+}
+
+@keyframes fadeInModal {
+  0% {
+    opacity: .2;
+    transform: translateY(80px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeOutModal {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  100% {
+    opacity: .2;
+    transform: translateY(80px);
+  }
+}
+
+.body__wrapper__modal {
+  padding-block: 20px;
+}
+
+.btns__wrapper__modal {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.btn__modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  border: 1px solid transparent;
+}
+
+
+.btn__modal__blue {
+  background-color: var(--blue-500);
+  border-color: var(--blue-500);
+  color: var(--light-50);
+
+  &:hover {
+    background-color: transparent;
+  }
+
+}
+
+
+.btn__modal__blue--border {
+  background-color: transparent;
+  border-color: var(--blue-500);
+  color: var(--light-50);
+
+  &:hover {
+    background-color: var(--blue-500);
+  }
+
+}
+
+.btn__modal__red {
+  background-color: var(--red-500);
+  border-color: var(--red-500);
+  color: var(--light-50);
+
+  &:hover {
+    background-color: transparent;
+  }
+
+}
+
+.btn__modal__red--border {
+  background-color: transparent;
+  border-color: var(--red-500);
+  color: var(--light-50);
+
+  &:hover {
+    background-color: var(--red-500);
+  }
+
+}
+
+body[light] {
+  .modal {
+    background-color: var(--light-50);
+    color: var(--dark-950);
+  }
+
+
+  .btn__modal__red--border {
+    color: var(--dark-950);
+
+    &:hover {
+      color: var(--light-50);
+    }
+
+  }
+
+  .btn__modal__blue--border {
+    color: var(--dark-950);
+
+    &:hover {
+      color: var(--light-50);
+    }
+
+  }
+
+
+  .btn__modal__blue {
+    &:hover {
+      color: var(--dark-950);
+    }
+  }
+
+  .btn__modal__red {
+    &:hover {
+      color: var(--dark-950);
+    }
+  }
+}

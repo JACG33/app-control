@@ -1,0 +1,118 @@
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table tbody {
+  border-radius: .5rem;
+}
+
+.table thead th {
+  padding: 5px 10px;
+}
+
+.table tbody td {
+  padding: 5px 10px;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: rgba(225, 225, 225, 0.3);
+}
+
+.table__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  border: 1px solid transparent;
+}
+
+.table__button--edit {
+  background-color: var(--blue-500);
+
+  &:hover {
+    background-color: var(--blue-400);
+  }
+}
+
+.table__button--delete {
+  background-color: var(--red-500);
+
+  &:hover {
+    background-color: var(--red-400);
+  }
+}
+
+.datatable__footer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 25px auto;
+}
+
+.datatable__footer__btns {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.datatable__footer__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: var(--blue-500) 1px solid;
+  font-weight: bold;
+
+  &:hover {
+    background-color: var(--blue-500);
+  }
+}
+
+
+.datatable__footer__btn--number {
+  padding: 4px 8px;
+}
+
+.datatable__footer__btn--active {
+  background-color: var(--blue-500);
+  color: var(--light-50);
+}
+
+.footer__wrapper {
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: .5rem;
+  background-color: var(--dark-800);
+}
+
+body[light] {
+  .table__button {
+    color: var(--light-50);
+  }
+
+  .footer__wrapper {
+    background-color: var(--light-100);
+  }
+
+  .datatable__footer__btn {
+    background-color: var(--light-100);
+    color: var(--dark-950);
+
+    &:hover {
+      background-color: var(--blue-500);
+      color: var(--light-50);
+    }
+  }
+
+  .datatable__footer__btn--active {
+    background-color: var(--blue-500);
+    color: var(--light-50);
+  }
+}

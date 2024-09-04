@@ -1,0 +1,110 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  border-radius: .8rem;
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0px 5px 15px 4px #00000010;
+  background-color: var(--dark-700);
+}
+
+.form__div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.form__input {
+  width: 100%;
+  padding: 8px 5px;
+  border-radius: .5rem;
+  border: 1px solid transparent;
+  transition: all 250ms ease-in-out;
+  background-color: var(--dark-800);
+
+  &:is(:focus-visible) {
+    outline: 1px solid var(--blue-400);
+    border: 1px solid transparent;
+  }
+
+  &::placeholder {
+    color: var(--light-200);
+  }
+}
+
+.form__show__eye {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* .form__area__link {} */
+
+.form__button {
+  padding: .5rem .8rem;
+  border-radius: .8rem;
+  border: 1px solid transparent;
+  width: 100%;
+  max-width: 170px;
+  cursor: pointer;
+  height: 34px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__button--save {
+  background-color: var(--blue-500);
+
+  &:hover {
+    background-color: var(--blue-400);
+  }
+}
+
+.form__button--back {
+  background-color: var(--red-500);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--red-400);
+  }
+}
+
+body[light] {
+
+  .form{
+    background-color: var(--light-50);
+    box-shadow:0px 5px 15px 4px #00000010 ;
+  }
+
+  .form__input {
+    border: 1px solid var(--blue-500);
+    background-color: var(--light-50);
+    color: var(--dark-950);
+
+    &:is(:focus-visible) {
+      border: 1px solid transparent;
+    }
+
+    &::placeholder {
+      color: var(--dark-700);
+    }
+  }
+
+
+}

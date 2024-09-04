@@ -1,0 +1,21 @@
+{
+  "name": "app-control",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "i-serve": "cd ./backend && pnpm i",
+    "i-client": "cd ./client && pnpm i",
+    "i-all": "concurrently \"pnpm run i-serve\"  \"pnpm run i-client\"",
+    "serve": "cd ./backend && pnpm run dev",
+    "client": "cd ./client && pnpm run dev",
+    "dev": "concurrently \"pnpm run serve\"  \"pnpm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "8.2.2"
+  },
+  "packageManager": "pnpm@9.0.4+sha512.c374b52de3de88c58fd8333df664a737279cdb0e1344ba4054d3b1fffa9a1a3670854f755dca4f16adea3f14be9896a7fcaf167409fe0c1ad60475271dafe81a"
+}
