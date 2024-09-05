@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Toast from "../../components/notifications/Toast";
 import QuestionButton from "../../components/reutilizables/questionpopover/QuestionButton";
-import { Eye } from "../../components/svg";
 import { API_URL } from "../../constans/api";
 import { userRegisterSchema } from "../../schema/user";
 import authCss from "./auth.module.css";
@@ -12,6 +11,7 @@ import {
   type StateError,
 } from "../../types/Response.types";
 import { useAuthContext } from "../../hooks/useAuthProvider";
+import InputPassword from "../../components/form-inputs/input-password";
 
 interface LoginForm {
   username: string;
@@ -31,16 +31,8 @@ const Signup = () => {
     messages: [],
   });
   const navigate = useNavigate();
-  const inpPassRef = useRef<HTMLInputElement | null>(null);
 
   const { postHttp } = useAuthContext();
-
-  const toggleInp = () => {
-    if (inpPassRef?.current?.type == "text")
-      inpPassRef.current.type = "password";
-    if (inpPassRef?.current?.type == "password")
-      inpPassRef.current.type = "text";
-  };
 
   const hldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (errors.typeMessage != "") setErrors({ typeMessage: "", messages: [] });
@@ -51,16 +43,7 @@ const Signup = () => {
     });
   };
 
-  const validateForm = ({
-    data,
-  }: {
-    data: {
-      username: string;
-      name: string;
-      lastname: string;
-      password: string;
-    };
-  }) => {
+  const validateForm = ({ data }: { data: LoginForm }) => {
     const keys = Object.keys(data) as Array<keyof typeof data>;
 
     const errors: { message: string }[] = [];
@@ -90,7 +73,7 @@ const Signup = () => {
         body: loginForm,
       });
 
-      if (!res.ok) throw await res.json();
+      if (!res.ok) throw res;
       const json = (await res.json()) as ErrorResponseHttp;
 
       setErrors({ typeMessage: "success", messages: json.body });
@@ -105,7 +88,7 @@ const Signup = () => {
         });
       }
     }
-    setTimeout(() => setErrors({ typeMessage: "error", messages: [] }), 10000);
+    setTimeout(() => setErrors({ typeMessage: "", messages: [] }), 10000);
   };
 
   return (
@@ -182,25 +165,15 @@ const Signup = () => {
               </QuestionButton>
             </div>
 
-            <div style={{ position: "relative" }}>
-              <input
-                ref={inpPassRef}
-                className={formCss.form__input}
-                type="password"
-                id="sigpassword"
-                name="password"
-                value={loginForm.password}
-                placeholder="Contraseña"
-                onChange={hldChange}
-              />
-              <button
-                className={formCss.form__show__eye}
-                onClick={toggleInp}
-                type="button"
-              >
-                <Eye />
-              </button>
-            </div>
+            <InputPassword
+              className={formCss.form__input}
+              type="password"
+              id="sigpassword"
+              name="password"
+              value={loginForm.password}
+              placeholder="Contraseña"
+              onChange={hldChange}
+            />
           </div>
         </div>
 

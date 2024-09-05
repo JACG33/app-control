@@ -1,9 +1,8 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import formCss from "../../assets/styles/form.module.css";
 import Toast from "../../components/notifications/Toast";
 import QuestionButton from "../../components/reutilizables/questionpopover/QuestionButton";
-import { Eye } from "../../components/svg";
 import { API_URL } from "../../constans/api";
 import { useAuthContext } from "../../hooks/useAuthProvider";
 import authCss from "./auth.module.css";
@@ -12,6 +11,7 @@ import {
   type LoginResponse,
   type StateError,
 } from "../../types/Response.types";
+import InputPassword from "../../components/form-inputs/input-password";
 
 const Login = () => {
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
@@ -20,16 +20,7 @@ const Login = () => {
     messages: [],
   });
   const { setLogged } = useAuthContext();
-  const inpPassRef = useRef<HTMLInputElement | null>(null);
-
   const { postHttp } = useAuthContext();
-
-  const toggleInp = () => {
-    if (inpPassRef?.current?.type == "text")
-      inpPassRef.current.type = "password";
-    if (inpPassRef?.current?.type == "password")
-      inpPassRef.current.type = "text";
-  };
 
   const hldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (errors.typeMessage != "") setErrors({ typeMessage: "", messages: [] });
@@ -121,25 +112,15 @@ const Login = () => {
               </QuestionButton>
             </div>
 
-            <div style={{ position: "relative" }}>
-              <input
-                ref={inpPassRef}
-                className={formCss.form__input}
-                type="password"
-                id="logpassword"
-                name="password"
-                placeholder="Contraseña"
-                value={loginForm.password}
-                onChange={hldChange}
-              />
-              <button
-                className={formCss.form__show__eye}
-                onClick={toggleInp}
-                type="button"
-              >
-                <Eye />
-              </button>
-            </div>
+            <InputPassword
+              className={formCss.form__input}
+              type="password"
+              id="logpassword"
+              name="password"
+              placeholder="Contraseña"
+              value={loginForm.password}
+              onChange={hldChange}
+            />
           </div>
         </div>
 

@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect,  useState } from "react";
 import { Navigate } from "react-router-dom";
 import Toast from "../../../components/notifications/Toast";
 import QuestionButton from "../../../components/reutilizables/questionpopover/QuestionButton";
-import { Eye } from "../../../components/svg";
 import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
 import { userCreateSchema } from "../../../schema/user";
 import authCss from "./create-user.module.css";
 import formCss from "../../../assets/styles/form.module.css";
 import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import InputPassword from "../../../components/form-inputs/input-password";
 
 interface RoleUser {
   id: number;
@@ -29,14 +29,6 @@ const CreateUser = () => {
     typeMessage: "",
     messages: [],
   });
-  const inpPassRef = useRef<HTMLInputElement | null>(null);
-
-  const toggleInp = () => {
-    if (inpPassRef?.current?.type == "text")
-      inpPassRef.current.type = "password";
-    if (inpPassRef?.current?.type == "password")
-      inpPassRef.current.type = "text";
-  };
 
   const getRoles = async () => {
     try {
@@ -58,7 +50,11 @@ const CreateUser = () => {
     }
   };
 
-  const hldChange = (e: React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLSelectElement>) => {
+  const hldChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     if (errors.typeMessage != "") setErrors({ typeMessage: "", messages: [] });
     const { target } = e;
     setUser({
@@ -199,25 +195,15 @@ const CreateUser = () => {
               </QuestionButton>
             </div>
 
-            <div style={{ position: "relative" }}>
-              <input
-                ref={inpPassRef}
-                className={formCss.form__input}
-                type="password"
-                id="sigpassword"
-                name="password"
-                value={user.password}
-                placeholder="Nueva contraseña"
-                onChange={hldChange}
-              />
-              <button
-                className={formCss.form__show__eye}
-                onClick={toggleInp}
-                type="button"
-              >
-                <Eye />
-              </button>
-            </div>
+            <InputPassword
+              className={formCss.form__input}
+              type="password"
+              id="sigpassword"
+              name="password"
+              value={user.password}
+              placeholder="Nueva contraseña"
+              onChange={hldChange}
+            />
           </div>
           <div className={formCss.form__div}>
             <label htmlFor="role">Rol de Usuario</label>

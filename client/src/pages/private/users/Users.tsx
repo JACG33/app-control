@@ -1,33 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Toast from "../../../components/notifications/Toast";
-import Table from "./Table";
 import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
 import modalStyles from "../../../assets/styles/modals.module.css";
 import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
-
-interface Data {
-  id_user: string;
-  nombre_usuario: string;
-  nombre: string;
-  apellido: string;
-  Role: {
-    role_name: string;
-  };
-}
-
-interface Pagination {
-  firstPage?: string;
-  prevPage?: string;
-  nextPage?: string;
-  lastPage?: string;
-  baseUrl?: string;
-  limit?: number;
-  totalRecords?: number;
-  totalPage?: number;
-  currentNumberPage?: number;
-}
+import Table from "../../../components/table/Table";
+import { Data, Pagination } from "../../../types/Table.types";
 
 interface UsersInfo {
   data: Data[];

@@ -4,22 +4,11 @@ import table from "../../../components/table/table.module.css";
 import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
 import { type ErrorResponseHttp } from "../../../types/Response.types";
+import { Pagination } from "../../../types/Table.types";
 
 interface Data {
   id: string;
   role_name: string;
-}
-
-interface Pagination {
-  firstPage?: string;
-  prevPage?: string;
-  nextPage?: string;
-  lastPage?: string;
-  baseUrl?: string;
-  limit?: number;
-  totalRecords?: number;
-  totalPage?: number;
-  currentNumberPage?: number;
 }
 
 interface ResData {

@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Toast from "../../../components/notifications/Toast";
 import QuestionButton from "../../../components/reutilizables/questionpopover/QuestionButton";
-import { Eye } from "../../../components/svg";
 import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
 import { userRegisterSchema } from "../../../schema/user";
 import profileCss from "./profile.module.css";
 import formCss from "../../../assets/styles/form.module.css";
 import { type StateError } from "../../../types/Response.types";
+import InputPassword from "../../../components/form-inputs/input-password";
 
 interface LoginForm {
   username: string;
@@ -28,14 +28,6 @@ const Profile = () => {
     typeMessage: "",
     messages: [],
   });
-  const inpPassRef = useRef<HTMLInputElement | null>(null);
-
-  const toggleInp = () => {
-    if (inpPassRef?.current?.type == "text")
-      inpPassRef.current.type = "password";
-    if (inpPassRef?.current?.type == "password")
-      inpPassRef.current.type = "text";
-  };
 
   const getInfoUser = async () => {
     try {
@@ -89,7 +81,7 @@ const Profile = () => {
 
     keys.forEach((key) => {
       const pattern = new RegExp(userRegisterSchema[key].pattern);
-      if (data[key]&&!data[key]!.match(pattern)) {
+      if (data[key] && !data[key]!.match(pattern)) {
         errors.push({ message: userRegisterSchema[key].message });
       }
     });
@@ -120,11 +112,10 @@ const Profile = () => {
 
       const json = await res.json();
 
-      setErrors({ typeMessage: "success", messages: json.body[0] });
+      setErrors({ typeMessage: "success", messages: json.body });
       setTimeout(() => {
         setErrors({ typeMessage: "", messages: [] });
       }, 10000);
-      console.log(json);
     } catch (error) {
       if (error instanceof Response) {
         const messages = await error.json();
@@ -212,25 +203,15 @@ const Profile = () => {
               <li>Debe tener más de 8 caracteres.</li>
             </QuestionButton>
           </div>
-          <div style={{ position: "relative" }}>
-            <input
-              ref={inpPassRef}
-              className={formCss.form__input}
-              type="password"
-              id="password"
-              name="password"
-              value={userInfo.password}
-              placeholder="Nueva contraseña"
-              onChange={hldChange}
-            />
-            <button
-              className={formCss.form__show__eye}
-              onClick={toggleInp}
-              type="button"
-            >
-              <Eye />
-            </button>
-          </div>
+          <InputPassword
+            className={formCss.form__input}
+            type="password"
+            id="password"
+            name="password"
+            value={userInfo.password}
+            placeholder="Nueva contraseña"
+            onChange={hldChange}
+          />
         </div>
         <button
           className={`${formCss.form__button} ${formCss["form__button--save"]}`}

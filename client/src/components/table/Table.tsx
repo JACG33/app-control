@@ -1,151 +1,33 @@
-import { useEffect, useState } from "react";
-import { API_URL } from "../../constans/api";
+import { useEffect } from "react";
+import { TableProvider } from "../../context/TableProvider";
+import { useTableProvider } from "../../hooks/useTableProvider";
+import { TableComp } from "../../types/Table.types";
 import { EditPen, Trash } from "../svg";
+import TablePagination from "./table-pagination";
 import table from "./table.module.css";
-import { ErrorResponseHttp } from "../../types/Response.types";
-import { useAuthContext } from "../../hooks/useAuthProvider";
 
-interface Data {
-  id_user: string;
-  nombre_usuario: string;
-  nombre: string;
-  apellido: string;
-  Role: {
-    role_name: string;
-  };
-}
+const Table = ({ body, pagination, hldDelete, hldEdit, header }: TableComp) => {
+  return (
+    <TableProvider>
+      <TableComponent
+        body={body}
+        pagination={pagination}
+        header={header}
+        hldDelete={hldDelete}
+        hldEdit={hldEdit}
+      />
+    </TableProvider>
+  );
+};
 
-interface Pagination {
-  firstPage?: string;
-  prevPage?: string;
-  nextPage?: string;
-  lastPage?: string;
-  baseUrl?: string;
-  limit?: number;
-  totalRecords?: number;
-  totalPage?: number;
-  currentNumberPage?: number;
-}
-
-interface ResData {
-  body?: Data[];
-  message?: string;
-  pagination?: Pagination;
-  error?: string;
-}
-
-interface DataToTabla {
-  data: Data[];
-  pagination: Pagination;
-}
-
-interface Table {
-  body: Data[];
-  pagination: Pagination;
-  header: string[];
-  hldEdit(id: string): void;
-  hldDelete(id: string): void;
-}
-
-const Table = ({ body, pagination, hldDelete, hldEdit, header }: Table) => {
-  const [dataToTabla, setDataToTabla] = useState<DataToTabla>({
-    data: [],
-    pagination: {},
-  });
-  const [navButtons, setNavButtons] = useState([
-    { url: "", numberPage: 0, current: false },
-  ]);
-
-  const { getHttp}=useAuthContext()
-
-  const makeNavButtons = ({
-    totalPage,
-    limitPage,
-    current,
-  }: {
-    totalPage: number;
-    limitPage: number;
-    current: number;
-  }) => {
-    const numLength = totalPage;
-    let arrNavButtons = [];
-    const limitPush = 4;
-    const nextLength = current + limitPush;
-    const prevLength = current - 4;
-
-    for (let ind = current; ind > prevLength; ind--)
-      if (ind > 1 && ind < current)
-        if (ind == current) {
-          arrNavButtons.push({
-            url: `/users?limit=${limitPage}&page=${ind}`,
-            numberPage: ind,
-            current: true,
-          });
-        } else {
-          arrNavButtons.push({
-            url: `/users?limit=${limitPage}&page=${ind}`,
-            numberPage: ind,
-            current: false,
-          });
-        }
-
-    arrNavButtons = arrNavButtons.reverse();
-
-    for (let index = current; index < nextLength; index++)
-      if (index > 1 && index < numLength)
-        if (index == current) {
-          arrNavButtons.push({
-            url: `/users?limit=${limitPage}&page=${index}`,
-            numberPage: index,
-            current: true,
-          });
-        } else {
-          arrNavButtons.push({
-            url: `/users?limit=${limitPage}&page=${index}`,
-            numberPage: index,
-            current: false,
-          });
-        }
-
-    setNavButtons(arrNavButtons);
-  };
-
-  const newPage = async ({ url = "" }) => {
-    try {
-      const localUrl = url.replace(`http://localhost:3000/api`, "");
-      // console.log(`${API_URL}${localUrl}`);
-
-      const res = await getHttp({endpoint: `${API_URL}${localUrl}`});
-
-      if (!res.ok) throw res;
-
-      const json = (await res.json()) as ResData;
-
-      if (json?.body && json?.pagination)
-        setDataToTabla({ data: json.body, pagination: json.pagination });
-
-      if (
-        json?.pagination?.limit &&
-        json?.pagination?.totalPage &&
-        json?.pagination?.currentNumberPage
-      )
-        makeNavButtons({
-          limitPage: json.pagination.limit,
-          totalPage: json.pagination.totalPage,
-          current: json.pagination.currentNumberPage,
-        });
-    } catch (error) {
-      if (error && typeof error == "object" && "body" in error) {
-        const messages = error as ErrorResponseHttp;
-        console.log(messages);
-
-        // setErrors({
-        //   typeMessage: "error",
-        //   messages: messages.body,
-        // });
-      }
-    }
-  };
+const TableComponent = ({
+  body,
+  pagination,
+  hldDelete,
+  hldEdit,
+  header,
+}: TableComp) => {
+  const { makeNavButtons, dataToTabla, setDataToTabla } = useTableProvider();
 
   useEffect(() => {
     if (body && pagination)
@@ -204,66 +86,10 @@ const Table = ({ body, pagination, hldDelete, hldEdit, header }: Table) => {
             </tr>
           ))}
       </tbody>
-      <tfoot>
-        <tr>
-          <td colSpan={header.length}>
-            <div className={table.datatable__footer}>
-              <div className={table.footer__wrapper}>
-                <span>
-                  Pagina {dataToTabla.pagination.currentNumberPage} de{" "}
-                  {dataToTabla.pagination.totalPage}
-                </span>
-              </div>
-              <div className={table.datatable__footer__btns}>
-                <button
-                  className={`${table.datatable__footer__btn} ${
-                    dataToTabla.pagination.currentNumberPage == 1
-                      ? table["datatable__footer__btn--active"]
-                      : ""
-                  }`}
-                  onClick={() =>
-                    newPage({ url: dataToTabla.pagination.firstPage })
-                  }
-                >
-                  1
-                </button>
-
-                {navButtons.length > 0 &&
-                  navButtons.map((navButton) => (
-                    <button
-                      className={`${table.datatable__footer__btn} ${
-                        navButton.current
-                          ? table["datatable__footer__btn--active"]
-                          : ""
-                      }`}
-                      key={navButton.numberPage}
-                      onClick={() => newPage({ url: navButton.url })}
-                    >
-                      {navButton.numberPage}
-                    </button>
-                  ))}
-
-                <button
-                  className={`${table.datatable__footer__btn} ${
-                    dataToTabla.pagination.currentNumberPage ==
-                    dataToTabla.pagination.totalPage
-                      ? table["datatable__footer__btn--active"]
-                      : ""
-                  }`}
-                  onClick={() =>
-                    newPage({ url: dataToTabla.pagination.lastPage })
-                  }
-                >
-                  {dataToTabla.pagination.totalPage}
-                </button>
-              </div>
-              <div className={table.footer__wrapper}>
-                <span>Resultados {dataToTabla.pagination.totalRecords}</span>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tfoot>
+      <TablePagination
+        headerLength={header.length}
+        pagination={dataToTabla.pagination}
+      />
     </table>
   );
 };

@@ -7,17 +7,17 @@ interface UserSchema {
 
 export const userCreateSchema: UserSchema = {
   username: {
-    pattern: "/[^\\p{L}]{3,}/",
+    pattern: "[^\\p{L}]{3,}",
     message:
       "El nombre de usuario no puede tener menos de 3 caracteres o estar vacio, solo se permiten puntos como caracter adicional.",
   },
   name: {
-    pattern: "/[^\\p{L}]{3,}/",
+    pattern: "[^\\p{L}]{3,}",
     message:
       "El nombre no puede tener menos de 3 caracteres o estar vacio, solo se permiten puntos como caracter adicional.",
   },
   lastname: {
-    pattern: "/[^\\p{L}]{3,}/",
+    pattern: "[^\\p{L}]{3,}",
     message:
       "El apellido no puede tener menos de 3 caracteres o estar vacio, solo se permiten puntos como caracter adicional.",
   },
@@ -33,17 +33,17 @@ export const userCreateSchema: UserSchema = {
 
 export const userRegisterSchema: UserSchema = {
   username: {
-    pattern: "/[^\\p{L}]{3,}/",
+    pattern: "[^\\p{L}]{3,}",
     message:
       "El nombre de usuario no puede tener menos de 3 caracteres o estar vacio, solo se permiten puntos como caracter adicional.",
   },
   name: {
-    pattern: "/[^\\p{L}]{3,}/",
+    pattern: "[^\\p{L}]{3,}",
     message:
       "El nombre no puede tener menos de 3 caracteres o estar vacio, solo se permiten puntos como caracter adicional.",
   },
   lastname: {
-    pattern: "/[^\\p{L}]{3,}/",
+    pattern: "[^\\p{L}]{3,}",
     message:
       "El apellido no puede tener menos de 3 caracteres o estar vacio, solo se permiten puntos como caracter adicional.",
   },

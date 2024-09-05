@@ -71,6 +71,11 @@ const authRegister = async (req, res) => {
 
     const validate = userRegisterSchema.safeParse(req.body)
 
+    const verifyUserExist = await Users.findOne({ where: { nombre_usuario: username } })
+    
+    if(verifyUserExist)
+      return res.status(401).json({ message: "error", body: [{message:"Ya existe un usuario con ese nombre"}] })
+
     if (validate.error) {
       const errors = validate.error.errors.map(ele => ({ message: ele.message }))
 
