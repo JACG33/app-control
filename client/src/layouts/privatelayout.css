@@ -35,6 +35,7 @@
 .aside__navbar__logo {
   width: 75px;
   height: 75px;
+  border-radius: 50%;
 }
 
 .aside__navbar__close {

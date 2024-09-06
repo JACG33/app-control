@@ -1,4 +1,4 @@
-import logo from "../../components/img/jacg.svg";
+import logo from "../../components/img/GifHat.gif";
 import { useThemeContex } from "../../hooks/useThemeProvider";
 import { ArrowLeft, ArrowRoundedBracket } from "../svg";
 import { useAuthContext } from "../../hooks/useAuthProvider";
