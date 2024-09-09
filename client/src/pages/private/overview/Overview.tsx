@@ -54,7 +54,7 @@ const Overview = () => {
         <Toast messageType="success" data={errors.messages} />
       )}
       {/*  */}
-      Overview
+      {/* Overview */}
       <div className={overviewcss.bento__info}>
         {overviewData.length > 0 && (
           <>
@@ -78,7 +78,7 @@ const Overview = () => {
                   ? overviewData[1].roles
                   : "Sin Registros"}
               </span>
-              <Icons.Medal />
+              <Icons.Badges />
             </div>
             <div
               className={`${overviewcss.bento__item} ${overviewcss.bento__conversations}`}

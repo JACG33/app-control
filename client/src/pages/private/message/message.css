@@ -474,6 +474,11 @@ body[light] {
     }
   }
 
+  .asunto__input{
+    background-color: var(--light-50);
+    color: var(--dark-950);
+  }
+
   .admin__conversations {
     background-color: var(--blue-400);
     color: var(--light-50);
@@ -500,5 +505,9 @@ body[light] {
     &:hover{
       background-color: var(--blue-300);
     }
+  }
+
+  .btn__close__chat{
+    color: var(--red-500);
   }
 }

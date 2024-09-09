@@ -1,3 +1,8 @@
+# 09-SEP_2014 V2
++ Correccion de un error en el __AuthProvider__.
++ Añadi las migraciones y seeders de las conversaciones, mensajes y uploads.
++ Actulizacion del __README__.
+
 # 09-SEP_2014
 
 + Añadi un nuevo controlador, asi como una nueva route/api con el nombre irrelevant, el objetivo de esta implementacion seria para peticiones de cualquier tipo.

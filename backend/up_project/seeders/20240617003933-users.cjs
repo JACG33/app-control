@@ -18,17 +18,17 @@ module.exports = {
     const passHash = await bycript.hash("12345678", 8)
     const date = new Date()
     return await queryInterface.bulkInsert("users", [
-      // {
-      //   id_user: uui.randomUUID(),
-      //   nombre_usuario: "Superadmin",
-      //   nombre: "Superadmin",
-      //   apellido: "Superadmin",
-      //   nombre_usuario: "Superadmin",
-      //   password: passHash,
-      //   role_id: 1,
-      //   createdAt: date,
-      //   updatedAt: date
-      // }
+      {
+        id_user: uui.randomUUID(),
+        nombre_usuario: "Superadmin",
+        nombre: "Superadmin",
+        apellido: "Superadmin",
+        nombre_usuario: "Superadmin",
+        password: passHash,
+        role_id: 1,
+        createdAt: date,
+        updatedAt: date
+      },
       {
         id_user: uui.randomUUID(),
         nombre_usuario: "user",

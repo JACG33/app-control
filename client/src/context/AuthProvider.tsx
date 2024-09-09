@@ -193,10 +193,10 @@ export const AuthProvider: React.FC<AuthProvider> = ({ children }) => {
   };
 
   const verifyErrors = async (error: unknown) => {
-    if (error instanceof Response && typeof error.json === "function") {
+    if (error instanceof Response) {
       const errorCloned = error.clone();
       const message = await errorCloned.json();
-      if (message.mesagge == "Session out") {
+      if (message.message == "Session out") {
         console.log("unaut");
         logUt();
         return;

@@ -18,10 +18,12 @@
   transition: all 250ms ease-in-out;
   transform: translateX(-210px);
   z-index: 99;
+  visibility: hidden;
 }
 
 .aside__navbar--open {
   transform: translateX(0px);
+  visibility: visible;
 }
 
 .aside__navbar__top {
