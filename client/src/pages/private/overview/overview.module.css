@@ -1,0 +1,115 @@
+.overview {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bento__info {
+  display: grid;
+  gap: 1rem;
+  grid-template-areas:
+    "users users"
+    "roles conversations"
+    "messages uploads"
+  ;
+  height: 300px;
+  margin: auto;
+  width: 100%;
+}
+
+.bento__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--dark-500);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  position: relative;
+  overflow: hidden;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  &:hover {
+    background-color: var(--dark-700);
+  }
+
+  &::after {
+    display: block;
+    position: absolute;
+    inset: auto auto auto 10px;
+    transition: all 350ms ease-in-out;
+    transform: rotate(-8deg) translateY(200px);
+    font-size: 1.3rem;
+  }
+
+  &:hover * {
+    color: var(--blue-500);
+  }
+
+  &:hover::after {
+    transform: rotate(-10deg) translateY(0px);
+    color: var(--blue-500);
+  }
+
+  & svg {
+    position: absolute;
+    transition: all 250ms ease-in-out;
+    inset: 10px 10px auto auto;
+    width: 30px;
+    height: 30px;
+  }
+
+}
+
+.bento__users {
+  grid-area: users;
+
+  &::after {
+    content: "Usuarios";
+  }
+}
+
+.bento__roles {
+  grid-area: roles;
+
+  &::after {
+    content: "Roles";
+  }
+}
+
+.bento__conversations {
+  grid-area: conversations;
+
+  &::after {
+    content: "Conversaciones";
+  }
+}
+
+.bento__messages {
+  grid-area: messages;
+
+  &::after {
+    content: "Mensajes";
+  }
+}
+
+.bento__uploads {
+  grid-area: uploads;
+
+  &::after {
+    content: "Uploads";
+  }
+}
+
+body[light] {
+  .bento__item {
+    background-color: var(--light-100);
+
+    &:hover {
+      background-color: var(--light-200);
+    }
+  }
+}

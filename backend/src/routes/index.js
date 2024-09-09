@@ -7,6 +7,7 @@ import apiRolesRouter from "./api.roles.routes.js";
 import apiUploadsRouter from "./api.uploads.routes.js";
 import apiMessageRouter from "./api.messages.routes.js";
 import apiConversationRouter from "./api.conversations.js";
+import apiIrrelevantsRouter from "./api.irrelevants.routes.js";
 
 const apiRoutes = Router()
 
@@ -17,5 +18,6 @@ apiRoutes.use("/api/roles", apiRolesRouter)
 apiRoutes.use("/api/uploads", apiUploadsRouter)
 apiRoutes.use("/api/messages", apiMessageRouter)
 apiRoutes.use("/api/conversations", apiConversationRouter)
+apiRoutes.use("/api/irrelevants", apiIrrelevantsRouter)
 
 export default apiRoutes

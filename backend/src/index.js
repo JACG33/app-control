@@ -56,11 +56,6 @@ const io = new Server(httpServer,{cors:{origin:"*"}})
 conversationSocket(io)
 // socket.io
 
-
-// app.listen(PORT, (req, res) => {
-//   console.log(`Serve up on port ${PORT}`)
-// })
-
 httpServer.listen(PORT, (req, res) => {
   console.log(`Serve up on port ${PORT}`)
 })

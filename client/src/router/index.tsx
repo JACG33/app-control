@@ -11,7 +11,7 @@ import AuthRoutes from "./AuthRoutes";
 
 //
 const AdminRoutes = lazy(() => import("./AdminRoutes"));
-const Overview = lazy(() => import("../pages/private/Overview"));
+const Overview = lazy(() => import("../pages/private/overview/Overview"));
 
 // Users
 const EditUser = lazy(() => import("../pages/private/users/EditUser"));

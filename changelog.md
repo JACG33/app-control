@@ -1,3 +1,9 @@
+# 09-SEP_2014
+
++ Añadi un nuevo controlador, asi como una nueva route/api con el nombre irrelevant, el objetivo de esta implementacion seria para peticiones de cualquier tipo.
++ Añadi nuevos svg en esta ocacion para utilizarlos en la pagina __overview__.
++ Movi el archivo __overview__ a una carpeta con el mismo nombre para agrupar los archivos necesarios en un solo lugar.
+
 # 05-SEP-2024
 
 + Separe el input de tipo __password__ en un componente aparte, se ubica en la carpeta components/form-inputs
