@@ -170,12 +170,14 @@
   .aside__navbar {
     position: static;
     transform: translateX(0px);
+    visibility: visible;
   }
 
   .aside__navbar--open {
     position: absolute;
     inset: 10px auto 10px auto;
     transform: translateX(-210px);
+    visibility: hidden;
   }
 }
 
