@@ -5,7 +5,7 @@ import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
 import Table from "./Table";
 import modalStyles from "../../../assets/styles/modals.module.css";
-import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import { StateError } from "../../../types/Response.types";
 
 interface Data {
   id: string;
@@ -57,16 +57,12 @@ const Roles = () => {
         setRoles({ data: json.body, pagination: json.pagination });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
         });
       }
-
-      // const messages = error.body
-
-      // setErrors({ typeMessage: "error", messages })
     }
   };
 
@@ -98,7 +94,7 @@ const Roles = () => {
       }, 10000);
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,

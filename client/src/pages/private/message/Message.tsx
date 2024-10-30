@@ -11,7 +11,7 @@ import {
   Messages,
   StateChatConversation,
 } from "../../../types/Message.types";
-import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import { StateError } from "../../../types/Response.types";
 import AdminConversations from "./admin-conversations";
 import ConversationItem from "./conversation-item";
 import MessageLeft from "./message-left";
@@ -121,7 +121,7 @@ const MessagePage = () => {
         }, 150);
       } catch (error) {
         if (error instanceof Response) {
-          const messages = (await error.json()) as ErrorResponseHttp;
+          const messages = await error.json();
           setErrors({
             typeMessage: "error",
             messages: messages.body,
@@ -145,7 +145,7 @@ const MessagePage = () => {
         setMessageUser({ messageContent: "" });
       } catch (error) {
         if (error instanceof Response) {
-          const messages = (await error.json()) as ErrorResponseHttp;
+          const messages = await error.json();
           setErrors({
             typeMessage: "error",
             messages: messages.body,
@@ -187,7 +187,7 @@ const MessagePage = () => {
       getConversations();
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -262,7 +262,7 @@ const MessagePage = () => {
       }, 150);
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -294,7 +294,7 @@ const MessagePage = () => {
       hdlMessageActions({ ids: [], open: false });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -306,13 +306,13 @@ const MessagePage = () => {
   useEffect(() => {
     getConversations();
   }, []);
-  
+
   useEffect(() => {
     // Cuando se crea una nueva conversacion.
     socket.on("coversation created", (msg) => {
       console.log("coversation created", { msg });
-      console.log({conversations});
-      
+      console.log({ conversations });
+
       getConversations();
       // setConversations([
       //   ...conversations,
@@ -397,31 +397,34 @@ const MessagePage = () => {
     socket.on(
       "all-conversations-result",
       (conversations: {
+        message: string;
         body: {
-          conversation_name: string;
+          conversation: string;
           id: number;
           createdAt: string;
           id_user: string;
         }[];
       }) => {
         console.log({ conversations });
-        if (sessionAuth.userRol != "superadmin") {
-          const conversation = conversations.body
-            .filter((ele) => ele.id_user == sessionAuth.userId)
-            .map((ele) => ({
-              name: ele.conversation_name,
+
+        if (conversations.message == "Ok")
+          if (sessionAuth.userRol != "superadmin") {
+            const conversation = conversations.body
+              .filter((ele) => ele.id_user == sessionAuth.userId)
+              .map((ele) => ({
+                name: ele.conversation,
+                id: ele.id,
+                time: ele.createdAt,
+              }));
+            setConversations(conversation);
+          } else {
+            const conversation = conversations.body.map((ele) => ({
+              name: ele.conversation,
               id: ele.id,
               time: ele.createdAt,
             }));
-          setConversations(conversation);
-        } else {
-          const conversation = conversations.body.map((ele) => ({
-            name: ele.conversation_name,
-            id: ele.id,
-            time: ele.createdAt,
-          }));
-          setConversations(conversation);
-        }
+            setConversations(conversation);
+          }
       }
     );
 
@@ -432,7 +435,7 @@ const MessagePage = () => {
       socket.off("all-conversations-result");
       socket.off("deleted messages");
     };
-  }, [messages]);
+  }, []);
 
   return (
     <div className="messages__page">

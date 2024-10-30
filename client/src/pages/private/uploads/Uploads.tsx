@@ -6,7 +6,7 @@ import { IMG_PlACEHOLDER, acceptedFiles } from "../../../config/constans";
 import { API_URL } from "../../../constans/api";
 import { SliceTextExtensionFile } from "../../../helpers/strings";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
-import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import { StateError } from "../../../types/Response.types";
 import { Files, FileStorage } from "../../../types/Uploads.types";
 import ModalUpload from "./ModalUpload";
 import uploadStyles from "./uploads.module.css";
@@ -128,7 +128,6 @@ const Uploads = () => {
     });
 
     console.log(filesToUpload);
-    
 
     try {
       const res = await postHttp({
@@ -157,7 +156,7 @@ const Uploads = () => {
       setErrors({ typeMessage: "success", messages: json.body });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,

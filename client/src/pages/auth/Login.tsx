@@ -6,11 +6,7 @@ import QuestionButton from "../../components/reutilizables/questionpopover/Quest
 import { API_URL } from "../../constans/api";
 import { useAuthContext } from "../../hooks/useAuthProvider";
 import authCss from "./auth.module.css";
-import {
-  type ErrorResponseHttp,
-  type LoginResponse,
-  type StateError,
-} from "../../types/Response.types";
+import { type StateError } from "../../types/Response.types";
 import InputPassword from "../../components/form-inputs/input-password";
 
 const Login = () => {
@@ -42,7 +38,7 @@ const Login = () => {
 
       if (!res.ok) throw res;
 
-      const json = (await res.json()) as LoginResponse;
+      const json = await res.json();
 
       setLogged({
         tokenAccess: json?.body[0].accessToken,
@@ -53,7 +49,7 @@ const Login = () => {
       });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,

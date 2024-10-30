@@ -16,7 +16,7 @@ Conversations.init(
       type: DataTypes.UUID,
       allowNull: false,
     },
-    conversation_name: {
+    conversation: {
       type: DataTypes.STRING,
       allowNull: false
     },

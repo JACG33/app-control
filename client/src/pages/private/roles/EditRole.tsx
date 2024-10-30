@@ -7,7 +7,6 @@ import profileCss from "../profile/profile.module.css";
 import formCss from "../../../assets/styles/form.module.css";
 import { roleCreateSchema } from "../../../schema/role";
 import {
-  type ErrorResponseHttp,
   type StateError,
 } from "../../../types/Response.types";
 
@@ -39,7 +38,7 @@ const EditRole = () => {
       });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -101,7 +100,7 @@ const EditRole = () => {
       }, 3000);
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,

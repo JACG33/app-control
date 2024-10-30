@@ -3,7 +3,6 @@ import { EditPen, Trash } from "../../../components/svg";
 import table from "../../../components/table/table.module.css";
 import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
-import { type ErrorResponseHttp } from "../../../types/Response.types";
 import { Pagination } from "../../../types/Table.types";
 
 interface Data {
@@ -124,8 +123,8 @@ const Table = ({
           current: json.pagination.currentNumberPage,
         });
     } catch (error) {
-      if (error && typeof error == "object" && "body" in error) {
-        const messages = error as ErrorResponseHttp;
+      if (error instanceof Response) {
+        const messages = error;
         console.log(messages);
 
         // setErrors({

@@ -8,7 +8,7 @@ import { useAuthContext } from "../../../hooks/useAuthProvider";
 import { userCreateSchema } from "../../../schema/user";
 import profileCss from "../profile/profile.module.css";
 import formCss from "../../../assets/styles/form.module.css";
-import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import { StateError } from "../../../types/Response.types";
 
 interface RoleUser {
   id: number;
@@ -58,7 +58,7 @@ const EditUser = () => {
       setRoles(json.body);
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -84,7 +84,7 @@ const EditUser = () => {
       });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -151,14 +151,14 @@ const EditUser = () => {
       if (!res.ok) throw res;
       const json = await res.json();
 
-      setErrors({ typeMessage: "success", messages: json.body[0] });
+      setErrors({ typeMessage: "success", messages: json.body });
       setTimeout(() => {
         setErrors({ typeMessage: "", messages: [] });
         navigate("/users");
       }, 3000);
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -170,6 +170,7 @@ const EditUser = () => {
   };
 
   useEffect(() => {
+    // Cargar Informacion del Usurio y los Roles existentes
     getInfoUser();
     getRoles();
   }, []);

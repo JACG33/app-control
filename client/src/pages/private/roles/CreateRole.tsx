@@ -6,7 +6,7 @@ import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
 import { roleCreateSchema } from "../../../schema/role";
 import authCss from "./create-user.module.css";
-import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import {  StateError } from "../../../types/Response.types";
 
 interface Role {
   rolname: string;
@@ -63,7 +63,7 @@ const CreateRole = () => {
       setErrors({ typeMessage: "success", messages: json.body[0] });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,

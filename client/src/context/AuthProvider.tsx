@@ -1,48 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { FetchReq } from "../helpers/httpHelp";
+import { type AuthContexProv } from "../types/AuthProvider.types";
 
-interface SessionAuth {
-  status: boolean;
-  accessToken: string;
-  refreshToken: string;
-  userId: string;
-  userRol: string;
-  userName: string;
-}
-
-interface AuthContex {
-  sessionAuth: SessionAuth;
-  setLogged(params: {
-    tokenAccess: string;
-    tokenRefresh: string;
-    userId: string;
-    rol: string;
-    userName: string;
-  }): void;
-  logUt(): void;
-  getHttp(params: {
-    endpoint: string;
-    moreheaders?: object;
-  }): Promise<Response>;
-  postHttp(params: {
-    endpoint: string;
-    body: object;
-    files?: boolean;
-    moreheaders?: object;
-  }): Promise<Response>;
-  putHttp(params: {
-    endpoint: string;
-    body: object;
-    moreheaders?: object;
-  }): Promise<Response>;
-  deleteHttp(params: {
-    endpoint: string;
-    body: object;
-    moreheaders?: object;
-  }): Promise<Response>;
-}
-
-export const AuthContex = createContext<AuthContex>({
+export const AuthContex = createContext<AuthContexProv>({
   sessionAuth: {
     status: false,
     accessToken: "",

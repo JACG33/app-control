@@ -64,7 +64,7 @@ const createMessage = async (req, res) => {
 
     const conversation = await Conversations.create({
       id_user: user,
-      conversation_name: asunto,
+      conversation: asunto,
     });
 
     if (conversation) {
@@ -398,7 +398,7 @@ const createMessageSocket = async ({ asunto, user, message, creator }) => {
 
     const conversation = await Conversations.create({
       id_user: user,
-      conversation_name: asunto,
+      conversation: asunto,
     });
 
     if (conversation) {
@@ -417,7 +417,6 @@ const createMessageSocket = async ({ asunto, user, message, creator }) => {
         chat.time=result.createdAt
       }
 
-      console.log(conversation);
     } else {
       return {
         message: "error",

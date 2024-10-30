@@ -6,10 +6,7 @@ import { API_URL } from "../../constans/api";
 import { userRegisterSchema } from "../../schema/user";
 import authCss from "./auth.module.css";
 import formCss from "../../assets/styles/form.module.css";
-import {
-  type ErrorResponseHttp,
-  type StateError,
-} from "../../types/Response.types";
+import { type StateError } from "../../types/Response.types";
 import { useAuthContext } from "../../hooks/useAuthProvider";
 import InputPassword from "../../components/form-inputs/input-password";
 
@@ -74,14 +71,14 @@ const Signup = () => {
       });
 
       if (!res.ok) throw res;
-      const json = (await res.json()) as ErrorResponseHttp;
+      const json = await res.json();
 
       setErrors({ typeMessage: "success", messages: json.body });
 
       return navigate("/login");
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,

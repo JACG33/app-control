@@ -1,7 +1,6 @@
 import { NavLink, Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthProvider";
 import { API_URL } from "../constans/api";
-import { ErrorResponseHttp } from "../types/Response.types";
 
 const NavBar = () => {
   const { sessionAuth, logUt } = useAuthContext();
@@ -17,7 +16,7 @@ const NavBar = () => {
 
       if (!res.ok) throw await res.json();
 
-      const json = (await res.json()) as ErrorResponseHttp;
+      const json = await res.json();
 
       if (json.message == "Out") {
         console.log(res);

@@ -4,7 +4,7 @@ import Toast from "../../../components/notifications/Toast";
 import { API_URL } from "../../../constans/api";
 import { useAuthContext } from "../../../hooks/useAuthProvider";
 import modalStyles from "../../../assets/styles/modals.module.css";
-import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import { StateError } from "../../../types/Response.types";
 import Table from "../../../components/table/Table";
 import { Data, Pagination } from "../../../types/Table.types";
 
@@ -41,7 +41,7 @@ const Users = () => {
         setUsers({ data: json.body, pagination: json.pagination });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -77,7 +77,7 @@ const Users = () => {
       }, 10000);
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,

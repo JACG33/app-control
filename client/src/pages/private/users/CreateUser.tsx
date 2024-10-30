@@ -1,4 +1,4 @@
-import { useEffect,  useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Toast from "../../../components/notifications/Toast";
 import QuestionButton from "../../../components/reutilizables/questionpopover/QuestionButton";
@@ -7,7 +7,7 @@ import { useAuthContext } from "../../../hooks/useAuthProvider";
 import { userCreateSchema } from "../../../schema/user";
 import authCss from "./create-user.module.css";
 import formCss from "../../../assets/styles/form.module.css";
-import { ErrorResponseHttp, StateError } from "../../../types/Response.types";
+import { StateError } from "../../../types/Response.types";
 import InputPassword from "../../../components/form-inputs/input-password";
 
 interface RoleUser {
@@ -41,7 +41,7 @@ const CreateUser = () => {
       setRoles(json.body);
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
@@ -107,7 +107,7 @@ const CreateUser = () => {
       setErrors({ typeMessage: "success", messages: json.body[0] });
     } catch (error) {
       if (error instanceof Response) {
-        const messages = (await error.json()) as ErrorResponseHttp;
+        const messages = await error.json();
         setErrors({
           typeMessage: "error",
           messages: messages.body,
